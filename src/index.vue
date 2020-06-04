@@ -37,7 +37,7 @@
     <div id="changeContab">
         <el-button class="language" type="text" @click="i18n=(i18n==='en'?'cn':'en')">{{i18n}}</el-button>
         <el-tabs type="border-card">
-            <el-tab-pane  v-show="!qzFlag">
+            <el-tab-pane  v-show="qzFlag!=='1'">
                 <span slot="label"><i class="el-icon-date"></i> {{text.Seconds.name}}</span>
                 <div class="tabBody">
                     <el-row>
@@ -238,7 +238,7 @@
                     </el-row>
                 </div>
             </el-tab-pane>
-            <el-tab-pane v-show="!qzFlag">
+            <el-tab-pane v-show="qzFlag!=='1'">
                 <span slot="label"><i class="el-icon-date"></i> {{text.Year.name}}</span>
                 <div class="tabBody">
                     <el-row>
@@ -541,7 +541,7 @@
             return years;
         },
         cron(){
-            if(this.qzFlag){
+            if(this.qzFlag === '1'){
               return `${this.minutesText||'*'} ${this.hoursText||'*'} ${this.daysText||'*'} ${this.monthsText||'*'} ${this.weeksText||'*'}`
             }else{
               return `${this.secondsText||'*'} ${this.minutesText||'*'} ${this.hoursText||'*'} ${this.daysText||'*'} ${this.monthsText||'*'} ${this.weeksText||'?'} ${this.yearsText||'*'}`
