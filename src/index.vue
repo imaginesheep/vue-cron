@@ -37,7 +37,7 @@
     <div id="changeContab">
         <el-button class="language" type="text" @click="i18n=(i18n==='en'?'cn':'en')">{{i18n}}</el-button>
         <el-tabs type="border-card">
-            <el-tab-pane>
+            <el-tab-pane  v-show="!qzFlag">
                 <span slot="label"><i class="el-icon-date"></i> {{text.Seconds.name}}</span>
                 <div class="tabBody">
                     <el-row>
@@ -238,7 +238,7 @@
                     </el-row>
                 </div>
             </el-tab-pane>
-            <el-tab-pane>
+            <el-tab-pane v-show="!qzFlag">
                 <span slot="label"><i class="el-icon-date"></i> {{text.Year.name}}</span>
                 <div class="tabBody">
                     <el-row>
@@ -279,7 +279,7 @@
     import Language from '../language/index'
     export default {
     name:'vueCron',
-    props:['data','i18n'],
+    props:['data','i18n','qzFlag'],
     data(){
         return {
             second:{
@@ -541,7 +541,11 @@
             return years;
         },
         cron(){
-            return `${this.secondsText||'*'} ${this.minutesText||'*'} ${this.hoursText||'*'} ${this.daysText||'*'} ${this.monthsText||'*'} ${this.weeksText||'?'} ${this.yearsText||'*'}`
+            if(this.qzFlag){
+              return `${this.minutesText||'*'} ${this.hoursText||'*'} ${this.daysText||'*'} ${this.monthsText||'*'} ${this.weeksText||'*'}`
+            }else{
+              return `${this.secondsText||'*'} ${this.minutesText||'*'} ${this.hoursText||'*'} ${this.daysText||'*'} ${this.monthsText||'*'} ${this.weeksText||'?'} ${this.yearsText||'*'}`
+            }
         },
     },
     methods: {
